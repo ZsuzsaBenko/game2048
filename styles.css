@@ -2,17 +2,22 @@ html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #11114E;
 }
 
 h1 {
     text-align: center;
+    font-size: 50px;
+    color: gainsboro;
+    margin-top: 50px;
 }
 #game-container {
     display: flex;
     flex-wrap: wrap;
     margin: 100px auto;
     border: 1px solid black;
-    font-size: 50px;
+    font-size: 40px;
     text-align: center;
-    line-height: 150px;
+    line-height: 120px;
+    background-color: gainsboro;
 }

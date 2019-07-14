@@ -1,5 +1,5 @@
 export const game = {
-    gridNumber: 25,
+    gridNumber: 16,
     gameGrid: [],
     gridsLeftToRight: [],
     gridsRightToLeft: [],
