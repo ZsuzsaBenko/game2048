@@ -1,6 +1,10 @@
 export const game = {
-    gridNumber: 16,
+    gridNumber: 25,
     gameGrid: [],
+    gridsLeftToRight: [],
+    gridsRightToLeft: [],
+    gridsUpToDown: [],
+    gridsDownToUp: [],
 
     createGameGrid: function() {
         for (let i = 0; i < this.gridNumber; i++) {
@@ -8,6 +12,47 @@ export const game = {
                 index: i,
                 value: 0
             });
+        }
+    },
+
+    fillGridsLeftToRight: function () {
+        for(let i = 0; i < this.gameGrid.length; i += Math.sqrt(this.gameGrid.length)) {
+            let line = [];
+            for (let j = 0; j < Math.sqrt(this.gameGrid.length); j++) {
+                line.push((this.gameGrid[i + j]));
+            }
+            this.gridsLeftToRight.push(line);
+        }
+    },
+
+    fillGridsRightToLeft: function() {
+        for(let i = 0; i < this.gameGrid.length; i += Math.sqrt(this.gameGrid.length)) {
+            let line = [];
+            for (let j = Math.sqrt(this.gameGrid.length) - 1; j >= 0; j--) {
+                line.push((this.gameGrid[i + j]));
+            }
+            this.gridsRightToLeft.push(line);
+        }
+    },
+
+    fillGridsUpToDown: function() {
+        for(let i = 0; i < Math.sqrt(this.gameGrid.length); i++) {
+            let column = [];
+            for (let j = 0; j < this.gameGrid.length; j += Math.sqrt(this.gameGrid.length)) {
+                column.push((this.gameGrid[i + j]));
+            }
+            this.gridsUpToDown.push(column);
+        }
+    },
+
+    fillGridsDownToUp: function() {
+        for(let i = 0; i < Math.sqrt(this.gameGrid.length); i++) {
+            let column = [];
+            for (let j = this.gameGrid.length - Math.sqrt(this.gameGrid.length);
+                     j >= 0; j -= Math.sqrt(this.gameGrid.length)) {
+                column.push((this.gameGrid[i + j]));
+            }
+            this.gridsDownToUp.push(column);
         }
     },
 
@@ -22,12 +67,7 @@ export const game = {
     },
 
     moveLeft: function() {
-        const RightToLeft = [[this.gameGrid[3], this.gameGrid[2], this.gameGrid[1], this.gameGrid[0]],
-                             [this.gameGrid[7], this.gameGrid[6], this.gameGrid[5], this.gameGrid[4]],
-                             [this.gameGrid[11], this.gameGrid[10], this.gameGrid[9], this.gameGrid[8]],
-                             [this.gameGrid[15], this.gameGrid[14], this.gameGrid[13], this.gameGrid[12]]];
-
-        for (let line of RightToLeft){
+        for (let line of this.gridsRightToLeft){
             this.addSameNeighbours(line);
             this.shiftOverEmptyGrids(line);
         }
@@ -35,12 +75,7 @@ export const game = {
     },
 
      moveRight: function() {
-        const LeftToRight = [[this.gameGrid[0], this.gameGrid[1], this.gameGrid[2], this.gameGrid[3]],
-                             [this.gameGrid[4], this.gameGrid[5], this.gameGrid[6], this.gameGrid[7]],
-                             [this.gameGrid[8], this.gameGrid[9], this.gameGrid[10], this.gameGrid[11]],
-                             [this.gameGrid[12], this.gameGrid[13], this.gameGrid[14], this.gameGrid[15]]];
-
-        for (let line of LeftToRight){
+        for (let line of this.gridsLeftToRight){
             this.addSameNeighbours(line);
             this.shiftOverEmptyGrids(line);
         }
@@ -48,12 +83,7 @@ export const game = {
     },
 
     moveUp: function() {
-        const DownToUp = [[this.gameGrid[12], this.gameGrid[8], this.gameGrid[4], this.gameGrid[0]],
-                          [this.gameGrid[13], this.gameGrid[9], this.gameGrid[5], this.gameGrid[1]],
-                          [this.gameGrid[14], this.gameGrid[10], this.gameGrid[6], this.gameGrid[2]],
-                          [this.gameGrid[15], this.gameGrid[11], this.gameGrid[7], this.gameGrid[3]]];
-
-        for (let line of DownToUp){
+        for (let line of this.gridsDownToUp){
             this.addSameNeighbours(line);
             this.shiftOverEmptyGrids(line);
         }
@@ -61,12 +91,7 @@ export const game = {
     },
 
     moveDown: function() {
-        const UpToDown = [[this.gameGrid[0], this.gameGrid[4], this.gameGrid[8], this.gameGrid[12]],
-                          [this.gameGrid[1], this.gameGrid[5], this.gameGrid[9], this.gameGrid[13]],
-                          [this.gameGrid[2], this.gameGrid[6], this.gameGrid[10], this.gameGrid[14]],
-                          [this.gameGrid[3], this.gameGrid[7], this.gameGrid[11], this.gameGrid[15]]];
-
-        for (let line of UpToDown){
+        for (let line of this.gridsUpToDown){
             this.addSameNeighbours(line);
             this.shiftOverEmptyGrids(line);
         }
@@ -74,7 +99,7 @@ export const game = {
     },
 
     addSameNeighbours: function(grids) {
-        for (let i = 2; i >= 0; i--) {
+        for (let i = Math.sqrt(this.gridNumber) - 2; i >= 0; i--) {
             if (grids[i].value === grids[i + 1].value) {
                 grids[i + 1].value *= 2;
                 grids[i].value = 0;
@@ -84,8 +109,8 @@ export const game = {
     },
 
     shiftOverEmptyGrids: function(grids) {
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < Math.sqrt(this.gridNumber) - 1; i++) {
+            for (let j = 0; j < Math.sqrt(this.gridNumber) - 1; j++) {
                 if (grids[j + 1].value === 0) {
                     grids[j + 1].value = grids[j].value;
                     grids[j].value = 0;
@@ -97,6 +122,10 @@ export const game = {
 
     startGame: function () {
         this.createGameGrid();
+        this.fillGridsLeftToRight();
+        this.fillGridsRightToLeft();
+        this.fillGridsUpToDown();
+        this.fillGridsDownToUp();
         this.addTwo();
     }
 

@@ -5,6 +5,8 @@ export const view = {
     container: document.querySelector("#game-container"),
 
     createGameGrid: function() {
+        this.container.style.width = `${152 * Math.sqrt(game.gridNumber)}px`;
+        this.container.style.height = `${152 * Math.sqrt(game.gridNumber)}px`;
         for (let i = 0; i < game.gridNumber; i++) {
             let grid = document.createElement("div");
             grid.style.width = "150px";

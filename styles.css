@@ -10,8 +10,6 @@ h1 {
 #game-container {
     display: flex;
     flex-wrap: wrap;
-    width: 608px;
-    height: 608px;
     margin: 100px auto;
     border: 1px solid black;
     font-size: 50px;
