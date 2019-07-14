@@ -18,9 +18,30 @@ export const view = {
     displayGameGrid: function() {
         for (let i = 0; i < game.gridNumber; i++) {
             const grid = document.getElementById(`${i}`);
+            grid.innerText = '';
             if (game.gameGrid[i].value !== 0) {
                 grid.innerText = game.gameGrid[i].value;
             }
         }
+    },
+
+    perceiveArrows: function() {
+        window.addEventListener("keyup", function (event) {
+            switch (event.key) {
+                case "ArrowLeft":
+                    game.moveLeft();
+                    break;
+                case "ArrowRight":
+                    game.moveRight();
+                    break;
+                case "ArrowUp":
+                    game.moveUp();
+                    break;
+                case "ArrowDown":
+                    game.moveDown();
+                    break;
+            }
+            view.displayGameGrid();
+        });
     }
 };
