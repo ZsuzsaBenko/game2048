@@ -68,35 +68,47 @@ export const game = {
     },
 
     moveLeft: function() {
+        const prevState = JSON.stringify(this.gameGrid);
         for (let line of this.gridsRightToLeft){
             this.addSameNeighbours(line);
             this.shiftOverEmptyGrids(line);
         }
-        this.addTwo();
+        if (this.isAnythingMoved(prevState)) {
+            this.addTwo();
+        }
     },
 
      moveRight: function() {
+         const prevState = JSON.stringify(this.gameGrid);
         for (let line of this.gridsLeftToRight){
             this.addSameNeighbours(line);
             this.shiftOverEmptyGrids(line);
         }
-        this.addTwo();
+         if (this.isAnythingMoved(prevState)) {
+             this.addTwo();
+         }
     },
 
     moveUp: function() {
+        const prevState = JSON.stringify(this.gameGrid);
         for (let line of this.gridsDownToUp){
             this.addSameNeighbours(line);
             this.shiftOverEmptyGrids(line);
         }
-        this.addTwo();
+        if (this.isAnythingMoved(prevState)) {
+            this.addTwo();
+        }
     },
 
     moveDown: function() {
+        const prevState = JSON.stringify(this.gameGrid);
         for (let line of this.gridsUpToDown){
             this.addSameNeighbours(line);
             this.shiftOverEmptyGrids(line);
         }
-        this.addTwo();
+        if (this.isAnythingMoved(prevState)) {
+            this.addTwo();
+        }
     },
 
     addSameNeighbours: function(grids) {
@@ -116,9 +128,12 @@ export const game = {
                     grids[j + 1].value = grids[j].value;
                     grids[j].value = 0;
                 }
-
             }
         }
+    },
+
+    isAnythingMoved: function(prevState) {
+        return prevState !== JSON.stringify(this.gameGrid);
     },
 
     initGame: function(size) {
