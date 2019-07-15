@@ -57,14 +57,28 @@ export const game = {
         }
     },
 
-    addTwo: function() {
+    addNext: function() {
         if (this.gameGrid.filter(grid => grid.value === 0).length === 0) return;
 
         let gridNumber = Math.floor(Math.random() * this.gridNumber);
         while (this.gameGrid[gridNumber].value !== 0) {
             gridNumber = Math.floor(Math.random() * this.gridNumber);
         }
-        this.gameGrid[gridNumber].value = 2;
+        this.gameGrid[gridNumber].value = this.getRandomNumber();
+    },
+
+    getRandomNumber: function() {
+       const percent = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+       if (this.gridNumber < 16) {
+           return 2;
+       } else if (this.gridNumber === 16) {
+           let randomNumber = Math.floor(Math.random() * percent.length);
+           return randomNumber < 9 ? 2 : 4;
+       } else {
+           let randomNumber = Math.floor(Math.random() * percent.length);
+           return randomNumber < 7 ? 2 : randomNumber < 9 ? 4 : 8;
+       }
     },
 
     moveLeft: function() {
@@ -74,7 +88,7 @@ export const game = {
             this.shiftOverEmptyGrids(line);
         }
         if (this.isAnythingMoved(prevState)) {
-            this.addTwo();
+            this.addNext();
         }
     },
 
@@ -85,7 +99,7 @@ export const game = {
             this.shiftOverEmptyGrids(line);
         }
          if (this.isAnythingMoved(prevState)) {
-             this.addTwo();
+             this.addNext();
          }
     },
 
@@ -96,7 +110,7 @@ export const game = {
             this.shiftOverEmptyGrids(line);
         }
         if (this.isAnythingMoved(prevState)) {
-            this.addTwo();
+            this.addNext();
         }
     },
 
@@ -107,7 +121,7 @@ export const game = {
             this.shiftOverEmptyGrids(line);
         }
         if (this.isAnythingMoved(prevState)) {
-            this.addTwo();
+            this.addNext();
         }
     },
 
@@ -141,7 +155,7 @@ export const game = {
         this.fillGridsRightToLeft();
         this.fillGridsUpToDown();
         this.fillGridsDownToUp();
-        this.addTwo();
+        this.addNext();
     },
 
     destroyGame: function() {
