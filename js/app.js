@@ -2,14 +2,15 @@ import { game } from './game.js';
 import { view } from "./view.js";
 
 
-const main = function() {
+function main() {
     let size = 16;
-    const sizeSelect = document.querySelector("#gridSize");
-    sizeSelect.addEventListener("change", function(event) {
-        size = Math.pow(parseInt(sizeSelect.value), 2);
+
+    const sizeSelector = document.querySelector("#gridSize");
+    sizeSelector.addEventListener("change", function(event) {
+        size = Math.pow(parseInt(sizeSelector.value), 2);
         view.destroyGrid();
         game.destroyGame();
-        sizeSelect.blur();
+        sizeSelector.blur();
 
         game.initGame(size);
         view.createGameGrid();
@@ -21,8 +22,8 @@ const main = function() {
     game.initGame(16);
     view.createGameGrid();
     view.displayGameGrid();
-    view.perceiveArrows();
-};
+    view.listenToArrows();
+}
 
 main();
 

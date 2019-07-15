@@ -39,7 +39,7 @@ export const view = {
         }
     },
 
-    perceiveArrows: function() {
+    listenToArrows: function() {
         window.addEventListener("keyup", function (event) {
             switch (event.key) {
                 case "ArrowLeft":

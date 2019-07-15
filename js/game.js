@@ -117,7 +117,6 @@ export const game = {
                 grids[i + 1].value *= 2;
                 grids[i].value = 0;
             }
-
         }
     },
 
