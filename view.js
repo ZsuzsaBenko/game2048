@@ -57,5 +57,9 @@ export const view = {
             }
             view.displayGameGrid();
         });
+    },
+
+    destroyGrid: function() {
+        this.container.innerHTML = "";
     }
 };

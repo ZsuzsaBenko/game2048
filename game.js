@@ -1,12 +1,13 @@
 export const game = {
-    gridNumber: 16,
+    gridNumber: null,
     gameGrid: [],
     gridsLeftToRight: [],
     gridsRightToLeft: [],
     gridsUpToDown: [],
     gridsDownToUp: [],
 
-    createGameGrid: function() {
+    createGameGrid: function(size) {
+        this.gridNumber = size;
         for (let i = 0; i < this.gridNumber; i++) {
             this.gameGrid.push({
                 index: i,
@@ -120,13 +121,21 @@ export const game = {
         }
     },
 
-    startGame: function () {
-        this.createGameGrid();
+    initGame: function(size) {
+        this.createGameGrid(size);
         this.fillGridsLeftToRight();
         this.fillGridsRightToLeft();
         this.fillGridsUpToDown();
         this.fillGridsDownToUp();
         this.addTwo();
+    },
+
+    destroyGame: function() {
+        this.gameGrid = [];
+        this.gridsLeftToRight = [];
+        this.gridsRightToLeft = [];
+        this.gridsUpToDown = [];
+        this.gridsDownToUp = [];
     }
 
 };
