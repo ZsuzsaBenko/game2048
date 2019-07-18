@@ -84,8 +84,7 @@ export const game = {
     moveLeft: function() {
         const prevState = JSON.stringify(this.gameGrid);
         for (let line of this.gridsRightToLeft){
-            this.addSameNeighbours(line);
-            this.shiftOverEmptyGrids(line);
+            this.arrangeLine(line);
         }
         if (this.isAnythingMoved(prevState)) {
             this.addNext();
@@ -95,8 +94,7 @@ export const game = {
      moveRight: function() {
          const prevState = JSON.stringify(this.gameGrid);
         for (let line of this.gridsLeftToRight){
-            this.addSameNeighbours(line);
-            this.shiftOverEmptyGrids(line);
+            this.arrangeLine(line);
         }
          if (this.isAnythingMoved(prevState)) {
              this.addNext();
@@ -106,8 +104,7 @@ export const game = {
     moveUp: function() {
         const prevState = JSON.stringify(this.gameGrid);
         for (let line of this.gridsDownToUp){
-            this.addSameNeighbours(line);
-            this.shiftOverEmptyGrids(line);
+            this.arrangeLine(line);
         }
         if (this.isAnythingMoved(prevState)) {
             this.addNext();
@@ -117,8 +114,7 @@ export const game = {
     moveDown: function() {
         const prevState = JSON.stringify(this.gameGrid);
         for (let line of this.gridsUpToDown){
-            this.addSameNeighbours(line);
-            this.shiftOverEmptyGrids(line);
+            this.arrangeLine(line);
         }
         if (this.isAnythingMoved(prevState)) {
             this.addNext();
@@ -143,6 +139,12 @@ export const game = {
                 }
             }
         }
+    },
+
+    arrangeLine: function(line) {
+        this.shiftOverEmptyGrids(line);
+        this.addSameNeighbours(line);
+        this.shiftOverEmptyGrids(line);
     },
 
     isAnythingMoved: function(prevState) {
