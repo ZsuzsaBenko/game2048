@@ -23,6 +23,12 @@ h1 {
     background-color: gainsboro;
 }
 
+#message {
+    display: none;
+    color: gainsboro;
+    text-align: center;
+}
+
 label {
     display: block;
     margin-bottom: 20px;

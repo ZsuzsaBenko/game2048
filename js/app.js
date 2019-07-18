@@ -8,7 +8,7 @@ function main() {
     const sizeSelector = document.querySelector("#gridSize");
     sizeSelector.addEventListener("change", function(event) {
         size = Math.pow(parseInt(sizeSelector.value), 2);
-        view.destroyGrid();
+        view.destroyView();
         game.destroyGame();
         sizeSelector.blur();
 

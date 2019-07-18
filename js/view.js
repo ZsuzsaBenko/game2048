@@ -3,6 +3,7 @@ import {game} from './game.js';
 
 export const view = {
     container: document.querySelector("#game-container"),
+    winNumber: 2048,
 
     createGameGrid: function() {
         this.container.style.width = `${122 * Math.sqrt(game.gridNumber)}px`;
@@ -25,8 +26,18 @@ export const view = {
             if (game.gameGrid[i].value !== 0) {
                 grid.innerText = game.gameGrid[i].value;
                 this.colorGrid(grid);
+                if (game.gameGrid[i].value >= this.winNumber) {
+                    this.sendCongratulationsMessage(game.gameGrid[i].value);
+                }
             }
         }
+    },
+
+    sendCongratulationsMessage: function(number) {
+        const message = `You have reached ${number}! Congratulations!`;
+        const messageParagraph = document.querySelector("#message");
+        messageParagraph.textContent = message;
+        messageParagraph.style.display = "block";
     },
 
     colorGrid: function(grid) {
@@ -59,7 +70,8 @@ export const view = {
         });
     },
 
-    destroyGrid: function() {
+    destroyView: function() {
         this.container.innerHTML = "";
+        document.querySelector("#message").style.display = "none";
     }
 };
