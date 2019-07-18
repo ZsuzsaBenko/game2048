@@ -31,6 +31,9 @@ export const view = {
                 }
             }
         }
+        if (game.isGameOver())  {
+            alert("Game over!");
+        }
     },
 
     sendCongratulationsMessage: function(number) {

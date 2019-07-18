@@ -151,6 +151,25 @@ export const game = {
         return prevState !== JSON.stringify(this.gameGrid);
     },
 
+    isGameOver: function() {
+        if (this.gameGrid.find(grid => grid.value === 0)) {
+            return false;
+        }
+
+        for (let i = 0; i < Math.sqrt(this.gridNumber); i++) {
+            for (let j = 0; j < Math.sqrt(this.gridNumber) - 1; j++) {
+                if (this.gridsRightToLeft[i][j].value === this.gridsRightToLeft[i][j + 1].value ||
+                        this.gridsLeftToRight[i][j].value === this.gridsLeftToRight[i][j + 1].value ||
+                        this.gridsUpToDown[i][j].value === this.gridsUpToDown[i][j + 1].value ||
+                        this.gridsDownToUp[i][j].value === this.gridsDownToUp[i][j + 1].value) {
+                    return false;
+                }
+            }
+
+        }
+        return true;
+    },
+
     initGame: function(size) {
         this.createGameGrid(size);
         this.fillGridsLeftToRight();
