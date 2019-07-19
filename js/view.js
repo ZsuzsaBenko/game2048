@@ -3,7 +3,7 @@ import {game} from './game.js';
 
 export const view = {
     container: document.querySelector("#game-container"),
-    winNumber: 2048,
+    winNumber: 128,
 
     createGameGrid: function() {
         this.container.style.width = `${122 * Math.sqrt(game.gridNumber)}px`;
@@ -26,10 +26,11 @@ export const view = {
             if (game.gameGrid[i].value !== 0) {
                 grid.innerText = game.gameGrid[i].value;
                 this.colorGrid(grid);
-                if (game.gameGrid[i].value >= this.winNumber) {
-                    this.sendCongratulationsMessage(game.gameGrid[i].value);
-                }
             }
+        }
+        let maxNumber = Math.max(...game.gameGrid.map(grid => grid.value));
+        if (maxNumber >= this.winNumber) {
+            this.sendCongratulationsMessage(maxNumber);
         }
         if (game.isGameOver())  {
             alert("Game over!");
