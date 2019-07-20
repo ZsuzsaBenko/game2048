@@ -33,7 +33,17 @@ export const view = {
             this.sendCongratulationsMessage(maxNumber);
         }
         if (game.isGameOver())  {
-            alert("Game over!");
+            this.displayPopup();
+        }
+    },
+
+    colorGrid: function(grid) {
+        const colors = ["lightblue", "lightcoral", "palegreen", "gold", "slateblue", "forestgreen", "orange",
+            "rebeccapurple", "crimson", "tan", "greenyellow", "indigo", "rosybrown", "turquoise"];
+        for(let i = 1; i <= colors.length; i++) {
+            if (grid.textContent === `${Math.pow(2, i)}`) {
+                grid.style.backgroundColor = colors[i-1];
+            }
         }
     },
 
@@ -44,14 +54,13 @@ export const view = {
         messageParagraph.style.display = "block";
     },
 
-    colorGrid: function(grid) {
-        const colors = ["lightblue", "lightcoral", "palegreen", "gold", "slateblue", "forestgreen", "orange",
-                        "rebeccapurple", "crimson", "tan", "greenyellow", "indigo", "rosybrown", "turquoise"];
-        for(let i = 1; i <= colors.length; i++) {
-            if (grid.textContent === `${Math.pow(2, i)}`) {
-                grid.style.backgroundColor = colors[i-1];
-            }
-        }
+    displayPopup: function() {
+        const popup = document.querySelector("#popup");
+        const popupCloseButton = popup.querySelector("span");
+        popup.style.display = "block";
+        popupCloseButton.addEventListener("click", function (event) {
+            popup.style.display = "none";
+        });
     },
 
     listenToArrows: function() {
