@@ -46,8 +46,8 @@ export const view = {
 
     colorGrid: function(grid) {
         const colors = ["lightblue", "lightcoral", "palegreen", "gold", "slateblue", "forestgreen", "orange",
-                        "rebeccapurple", "crimson", "tan", "greenyellow", "indigo", "rosybrown"];
-        for(let i = 1; i < 14; i++) {
+                        "rebeccapurple", "crimson", "tan", "greenyellow", "indigo", "rosybrown", "turquoise"];
+        for(let i = 1; i <= colors.length; i++) {
             if (grid.textContent === `${Math.pow(2, i)}`) {
                 grid.style.backgroundColor = colors[i-1];
             }
