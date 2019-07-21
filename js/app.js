@@ -23,6 +23,7 @@ function main() {
     view.createGameGrid();
     view.displayGameGrid();
     view.listenToArrows();
+    view.undoMove();
 }
 
 main();

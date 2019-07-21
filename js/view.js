@@ -83,6 +83,14 @@ export const view = {
         });
     },
 
+    undoMove: function() {
+        const undoButton = document.querySelector("#undoButton");
+        undoButton.addEventListener("click", function (event) {
+           game.undo();
+           view.displayGameGrid();
+        });
+    },
+
     destroyView: function() {
         this.container.innerHTML = "";
         document.querySelector("#message").style.display = "none";
