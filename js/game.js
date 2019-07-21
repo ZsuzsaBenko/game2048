@@ -89,8 +89,8 @@ export const game = {
         }
         if (this.isAnythingMoved(prevState)) {
             this.addNext();
+            this.previousState = JSON.parse(prevState);
         }
-        this.previousState = JSON.parse(prevState);
     },
 
      moveRight: function() {
@@ -100,8 +100,8 @@ export const game = {
         }
          if (this.isAnythingMoved(prevState)) {
              this.addNext();
+             this.previousState = JSON.parse(prevState);
          }
-         this.previousState = JSON.parse(prevState);
      },
 
     moveUp: function() {
@@ -111,8 +111,8 @@ export const game = {
         }
         if (this.isAnythingMoved(prevState)) {
             this.addNext();
+            this.previousState = JSON.parse(prevState);
         }
-        this.previousState = JSON.parse(prevState);
     },
 
     moveDown: function() {
@@ -122,8 +122,8 @@ export const game = {
         }
         if (this.isAnythingMoved(prevState)) {
             this.addNext();
+            this.previousState = JSON.parse(prevState);
         }
-        this.previousState = JSON.parse(prevState);
     },
 
     addSameNeighbours: function(grids) {
