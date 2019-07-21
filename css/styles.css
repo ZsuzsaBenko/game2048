@@ -9,13 +9,13 @@ h1 {
     text-align: center;
     font-size: 50px;
     color: gainsboro;
-    margin-top: 50px;
+    margin: 50px;
 }
 
 #game-container {
     display: flex;
     flex-wrap: wrap;
-    margin: 50px auto;
+    margin: 30px auto;
     border: 1px solid black;
     font-size: 40px;
     text-align: center;
@@ -27,11 +27,39 @@ h1 {
     display: none;
     color: gainsboro;
     text-align: center;
+    font-size: 18px;
+}
+
+#game-buttons {
+    display: flex;
+    width: 350px;
+    margin: 0 auto;
+    justify-content: space-around;
+    padding-bottom: 20px;
+}
+
+#game-buttons button, select {
+    background-color: gainsboro;
+    color: #11114E;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 18px;
+}
+
+#game-buttons button:hover, select:hover {
+    background-color: floralwhite;
+    cursor: pointer;
 }
 
 label {
     display: block;
     margin-bottom: 20px;
+    font-size: 18px;
+}
+
+select {
+    padding: 7px;
 }
 
 #settings {

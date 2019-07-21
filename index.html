@@ -10,18 +10,19 @@
 </head>
 <body>
     <h1>2048</h1>
-    <div>
-        <button id="undoButton">Undo last move</button>
-    </div>
+    <p id="message"></p>
     <div id="game-container">
     </div>
-    <p id="message"></p>
+    <div id="game-buttons">
+        <button id="undoButton">Undo last move</button>
+        <button id="newGame">Play a new game</button>
+    </div>
     <div id="settings">
         <label for="gridSize">Try the game with a different grid size!</label>
         <select id="gridSize">
-            <option value="3">3x3</option>
-            <option value="4" selected>4x4</option>
-            <option value="5">5x5</option>
+            <option value="3">3 x 3</option>
+            <option value="4" selected>4 x 4</option>
+            <option value="5">5 x 5</option>
         </select>
     </div>
     <div id="popup">
