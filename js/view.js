@@ -91,6 +91,32 @@ export const view = {
         });
     },
 
+    playNewGame: function() {
+        const newGameButton = document.querySelector("#newGameButton");
+        newGameButton.addEventListener("click", function (event) {
+            let size = game.gameGrid.length;
+            view.restart(size);
+        });
+    },
+
+    chooseSize: function() {
+        const sizeSelector = document.querySelector("#gridSize");
+        sizeSelector.addEventListener("change", function(event) {
+            let size = Math.pow(parseInt(sizeSelector.value), 2);
+            sizeSelector.blur();
+            view.restart(size);
+        });
+    },
+
+    restart: function(size) {
+        this.destroyView();
+        game.destroyGame();
+
+        game.initGame(size);
+        this.createGameGrid();
+        this.displayGameGrid();
+    },
+
     destroyView: function() {
         this.container.innerHTML = "";
         document.querySelector("#message").style.display = "none";
