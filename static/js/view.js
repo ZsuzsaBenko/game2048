@@ -6,12 +6,13 @@ export const view = {
     winNumber: 128,
 
     createGameGrid: function() {
-        this.container.style.width = `${122 * Math.sqrt(game.gridNumber)}px`;
-        this.container.style.height = `${122 * Math.sqrt(game.gridNumber)}px`;
+        this.container.style.width = `${8 * Math.sqrt(game.gridNumber)}vw`;
+        this.container.style.height = `${8 * Math.sqrt(game.gridNumber)}vw`;
         for (let i = 0; i < game.gridNumber; i++) {
             let grid = document.createElement("div");
-            grid.style.width = "120px";
-            grid.style.height = "120px";
+            grid.style.boxSizing = "border-box";
+            grid.style.width = "8vw";
+            grid.style.height = "8vw";
             grid.style.border = "1px solid black";
             grid.setAttribute("id", `${i}`);
             this.container.appendChild(grid);
@@ -81,6 +82,46 @@ export const view = {
             }
             view.displayGameGrid();
         });
+    },
+
+    listenToTouchScreenEvents() {
+        let startX = 0;
+        let startY = 0;
+        let endX = 0;
+        let endY = 0;
+
+        window.addEventListener('touchstart', function(event){
+            let touchObj = event.changedTouches[0];
+            startX = touchObj.clientX;
+            startY = touchObj.clientY;
+            event.preventDefault()
+        }, false);
+
+        window.addEventListener('touchend', function(event){
+            let touchObj = event.changedTouches[0];
+            endX = touchObj.clientX;
+            endY = touchObj.clientY;
+
+            let distanceLeft = startX - endX;
+            let distanceRight = endX - startX;
+            let distanceUp = startY - endY;
+            let distanceDown = endY - startY;
+
+            event.preventDefault();
+
+            if (distanceLeft > distanceRight && distanceLeft > distanceDown && distanceLeft > distanceUp) {
+                game.moveLeft();
+            } else if (distanceRight > distanceLeft && distanceRight > distanceDown && distanceRight > distanceUp) {
+                game.moveRight();
+            } else if (distanceUp > distanceDown && distanceUp > distanceLeft && distanceUp > distanceRight) {
+                game.moveUp();
+            } else if (distanceDown > distanceUp && distanceDown > distanceLeft && distanceDown > distanceRight) {
+                game.moveDown();
+            }
+
+            view.displayGameGrid();
+        }, false);
+
     },
 
     undoMove: function() {

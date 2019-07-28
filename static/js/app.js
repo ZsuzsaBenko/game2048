@@ -9,6 +9,7 @@ function main() {
     view.createGameGrid();
     view.displayGameGrid();
     view.listenToArrows();
+    view.listenToTouchScreenEvents();
 
     view.undoMove();
     view.playNewGame();
