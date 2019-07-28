@@ -5,9 +5,9 @@ export const view = {
     container: document.querySelector("#game-container"),
     windowSize: window.innerWidth,
     windowSizeBreakpoints: [200, 600, 1000],
-    sizesForFewerGrids:  [85, 130, 150],
-    sizesForNormalGrids: [65, 100, 125],
-    sizesForMoreGrids: [55, 80, 100],
+    sizesForFewerGrids:  [85, 105, 110],
+    sizesForNormalGrids: [65, 85, 90],
+    sizesForMoreGrids: [55, 70, 75],
     winNumber: 128,
 
     createGameGrid: function() {
@@ -39,7 +39,7 @@ export const view = {
                 this.container.style.height = `${this.sizesForMoreGrids[i] * Math.sqrt(game.gridNumber)}px`;
                 this.container.style.lineHeight = `${this.sizesForMoreGrids[i] - 2}px`;
             }
-            this.container.style.fontSize = `${fontSizes[i]}`;
+            this.container.style.fontSize = `${fontSizes[i]}px`;
         }
     },
 

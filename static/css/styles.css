@@ -7,17 +7,16 @@ html, body {
 
 h1 {
     text-align: center;
-    font-size: 50px;
+    font-size: 45px;
     color: gainsboro;
-    margin: 50px;
+    margin: 25px;
 }
 
 #game-container {
     display: flex;
     flex-wrap: wrap;
-    margin: 30px auto;
+    margin: 25px auto;
     border: 1px solid black;
-    font-size: 30px;
     text-align: center;
     background-color: gainsboro;
 }
@@ -26,7 +25,7 @@ h1 {
     display: none;
     color: gainsboro;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 #game-buttons {
@@ -34,7 +33,7 @@ h1 {
     width: 350px;
     margin: 0 auto;
     justify-content: space-around;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
 }
 
 #game-buttons button, select {
@@ -43,7 +42,7 @@ h1 {
     border: none;
     border-radius: 10px;
     padding: 10px;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 #game-buttons button:hover, select:hover {
@@ -53,8 +52,8 @@ h1 {
 
 label {
     display: block;
-    margin-bottom: 20px;
-    font-size: 18px;
+    margin-bottom: 15px;
+    font-size: 16px;
 }
 
 select {
@@ -117,7 +116,7 @@ select {
 
 #popup-box p {
     text-align: center;
-    font-size: 50px;
+    font-size: 45px;
     line-height: 180px;
     color: #11114E;
     padding-left: 30px;
@@ -125,10 +124,6 @@ select {
 }
 
 @media only screen and (max-width: 1000px) {
-    #game-container {
-        margin: 30px auto;
-    }
-
     h1 {
         font-size: 40px;
         margin: 25px;
