@@ -3,19 +3,58 @@ import {game} from './game.js';
 
 export const view = {
     container: document.querySelector("#game-container"),
+    windowSize: window.innerWidth,
+    windowSizeBreakpoints: [200, 600, 1000],
+    sizesForFewerGrids:  [85, 130, 150],
+    sizesForNormalGrids: [65, 100, 125],
+    sizesForMoreGrids: [55, 80, 100],
     winNumber: 128,
 
     createGameGrid: function() {
-        this.container.style.width = `${8 * Math.sqrt(game.gridNumber)}vw`;
-        this.container.style.height = `${8 * Math.sqrt(game.gridNumber)}vw`;
+        this.defineContainerSize();
+
         for (let i = 0; i < game.gridNumber; i++) {
             let grid = document.createElement("div");
+            this.defineGridSize(grid);
             grid.style.boxSizing = "border-box";
-            grid.style.width = "8vw";
-            grid.style.height = "8vw";
-            grid.style.border = "1px solid black";
             grid.setAttribute("id", `${i}`);
+            grid.style.border = "1px solid black";
             this.container.appendChild(grid);
+        }
+    },
+
+    defineContainerSize() {
+        const fontSizes = [13, 20, 25];
+        for (let i = 0; i < this.windowSizeBreakpoints.length; i++) {
+            if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridNumber < 16) {
+                this.container.style.width = `${this.sizesForFewerGrids[i] * Math.sqrt(game.gridNumber)}px`;
+                this.container.style.height = `${this.sizesForFewerGrids[i] * Math.sqrt(game.gridNumber)}px`;
+                this.container.style.lineHeight = `${this.sizesForFewerGrids[i] - 2}px`;
+            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridNumber === 16) {
+                this.container.style.width = `${this.sizesForNormalGrids[i] * Math.sqrt(game.gridNumber)}px`;
+                this.container.style.height = `${this.sizesForNormalGrids[i] * Math.sqrt(game.gridNumber)}px`;
+                this.container.style.lineHeight = `${this.sizesForNormalGrids[i] - 2}px`;
+            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridNumber > 16) {
+                this.container.style.width = `${this.sizesForMoreGrids[i] * Math.sqrt(game.gridNumber)}px`;
+                this.container.style.height = `${this.sizesForMoreGrids[i] * Math.sqrt(game.gridNumber)}px`;
+                this.container.style.lineHeight = `${this.sizesForMoreGrids[i] - 2}px`;
+            }
+            this.container.style.fontSize = `${fontSizes[i]}`;
+        }
+    },
+
+    defineGridSize(grid) {
+        for (let i = 0; i < this.windowSizeBreakpoints.length; i++) {
+            if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridNumber < 16) {
+                grid.style.width = `${this.sizesForFewerGrids[i]}px`;
+                grid.style.height = `${this.sizesForFewerGrids[i]}px`;
+            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridNumber === 16) {
+                grid.style.width = `${this.sizesForNormalGrids[i]}px`;
+                grid.style.height = `${this.sizesForNormalGrids[i]}px`;
+            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridNumber > 16) {
+                grid.style.width = `${this.sizesForMoreGrids[i]}px`;
+                grid.style.height = `${this.sizesForMoreGrids[i]}px`;
+            }
         }
     },
 
@@ -90,14 +129,13 @@ export const view = {
         let endX = 0;
         let endY = 0;
 
-        window.addEventListener('touchstart', function(event){
+        this.container.addEventListener('touchstart', function(event){
             let touchObj = event.changedTouches[0];
             startX = touchObj.clientX;
             startY = touchObj.clientY;
-            event.preventDefault()
         }, false);
 
-        window.addEventListener('touchend', function(event){
+        this.container.addEventListener('touchend', function(event){
             let touchObj = event.changedTouches[0];
             endX = touchObj.clientX;
             endY = touchObj.clientY;
@@ -106,8 +144,6 @@ export const view = {
             let distanceRight = endX - startX;
             let distanceUp = startY - endY;
             let distanceDown = endY - startY;
-
-            event.preventDefault();
 
             if (distanceLeft > distanceRight && distanceLeft > distanceDown && distanceLeft > distanceUp) {
                 game.moveLeft();
@@ -146,6 +182,13 @@ export const view = {
             let size = Math.pow(parseInt(sizeSelector.value), 2);
             sizeSelector.blur();
             view.restart(size);
+        });
+    },
+
+    resetSizeSelector() {
+        const sizeSelector = document.querySelector("#gridSize");
+        window.addEventListener("load", function(event) {
+           sizeSelector.value = 4;
         });
     },
 

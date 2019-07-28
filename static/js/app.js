@@ -14,6 +14,8 @@ function main() {
     view.undoMove();
     view.playNewGame();
     view.chooseSize();
+
+    view.resetSizeSelector();
 }
 
 main();
