@@ -146,13 +146,13 @@ export const view = {
             let distanceDown = endY - startY;
 
             if (distanceLeft > distanceRight && distanceLeft > distanceDown && distanceLeft > distanceUp) {
-                game.moveLeft();
+                game.move("left");
             } else if (distanceRight > distanceLeft && distanceRight > distanceDown && distanceRight > distanceUp) {
-                game.moveRight();
+                game.move("right");
             } else if (distanceUp > distanceDown && distanceUp > distanceLeft && distanceUp > distanceRight) {
-                game.moveUp();
+                game.move("up");
             } else if (distanceDown > distanceUp && distanceDown > distanceLeft && distanceDown > distanceRight) {
-                game.moveDown();
+                game.move("down");
             }
 
             view.displayGameGrid();
