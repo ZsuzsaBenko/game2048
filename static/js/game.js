@@ -82,9 +82,26 @@ export const game = {
        }
     },
 
-    moveLeft: function() {
+    move: function(direction) {
         const prevState = JSON.stringify(this.gameGrid);
-        for (let line of this.gridsRightToLeft){
+
+        let grids;
+        switch(direction) {
+            case "left":
+                grids = this.gridsRightToLeft;
+                break;
+            case "right":
+                grids = this.gridsLeftToRight;
+                break;
+            case "up":
+                grids = this.gridsDownToUp;
+                break;
+            case "down":
+                grids = this.gridsUpToDown;
+                break;
+        }
+
+        for (let line of grids){
             this.arrangeLine(line);
         }
         if (this.isAnythingMoved(prevState)) {
@@ -93,38 +110,6 @@ export const game = {
         }
     },
 
-     moveRight: function() {
-        const prevState = JSON.stringify(this.gameGrid);
-        for (let line of this.gridsLeftToRight){
-            this.arrangeLine(line);
-        }
-         if (this.isAnythingMoved(prevState)) {
-             this.addNext();
-             this.previousState = JSON.parse(prevState);
-         }
-     },
-
-    moveUp: function() {
-        const prevState = JSON.stringify(this.gameGrid);
-        for (let line of this.gridsDownToUp){
-            this.arrangeLine(line);
-        }
-        if (this.isAnythingMoved(prevState)) {
-            this.addNext();
-            this.previousState = JSON.parse(prevState);
-        }
-    },
-
-    moveDown: function() {
-        const prevState = JSON.stringify(this.gameGrid);
-        for (let line of this.gridsUpToDown){
-            this.arrangeLine(line);
-        }
-        if (this.isAnythingMoved(prevState)) {
-            this.addNext();
-            this.previousState = JSON.parse(prevState);
-        }
-    },
 
     addSameNeighbours: function(grids) {
         for (let i = Math.sqrt(this.gridNumber) - 2; i >= 0; i--) {

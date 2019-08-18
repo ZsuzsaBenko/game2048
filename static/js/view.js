@@ -107,16 +107,16 @@ export const view = {
         window.addEventListener("keyup", function (event) {
             switch (event.key) {
                 case "ArrowLeft":
-                    game.moveLeft();
+                    game.move("left");
                     break;
                 case "ArrowRight":
-                    game.moveRight();
+                    game.move("right");
                     break;
                 case "ArrowUp":
-                    game.moveUp();
+                    game.move("up");
                     break;
                 case "ArrowDown":
-                    game.moveDown();
+                    game.move("down");
                     break;
             }
             view.displayGameGrid();
