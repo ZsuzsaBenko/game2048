@@ -60,7 +60,9 @@ export const game = {
     },
 
     addNext: function() {
-        if (this.grid.filter(grid => grid.value === 0).length === 0) return;
+        if (this.grid.filter(grid => grid.value === 0).length === 0) {
+            return;
+        }
 
         let cellIndex = Math.floor(Math.random() * this.gridSize);
         while (this.grid[cellIndex].value !== 0) {
