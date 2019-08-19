@@ -1,15 +1,15 @@
 export const game = {
-    gridNumber: null,
+    gridSize: null,
     gameGrid: [],
-    gridsLeftToRight: [],
-    gridsRightToLeft: [],
-    gridsUpToDown: [],
-    gridsDownToUp: [],
+    cellsLeftToRight: [],
+    cellsRightToLeft: [],
+    cellsUpToDown: [],
+    cellsDownToUp: [],
     previousState: null,
 
     createGameGrid: function(size) {
-        this.gridNumber = size;
-        for (let i = 0; i < this.gridNumber; i++) {
+        this.gridSize = size;
+        for (let i = 0; i < this.gridSize; i++) {
             this.gameGrid.push({
                 index: i,
                 value: 0
@@ -23,7 +23,7 @@ export const game = {
             for (let j = 0; j < Math.sqrt(this.gameGrid.length); j++) {
                 line.push((this.gameGrid[i + j]));
             }
-            this.gridsLeftToRight.push(line);
+            this.cellsLeftToRight.push(line);
         }
     },
 
@@ -33,7 +33,7 @@ export const game = {
             for (let j = Math.sqrt(this.gameGrid.length) - 1; j >= 0; j--) {
                 line.push((this.gameGrid[i + j]));
             }
-            this.gridsRightToLeft.push(line);
+            this.cellsRightToLeft.push(line);
         }
     },
 
@@ -43,7 +43,7 @@ export const game = {
             for (let j = 0; j < this.gameGrid.length; j += Math.sqrt(this.gameGrid.length)) {
                 column.push((this.gameGrid[i + j]));
             }
-            this.gridsUpToDown.push(column);
+            this.cellsUpToDown.push(column);
         }
     },
 
@@ -54,26 +54,26 @@ export const game = {
                      j >= 0; j -= Math.sqrt(this.gameGrid.length)) {
                 column.push((this.gameGrid[i + j]));
             }
-            this.gridsDownToUp.push(column);
+            this.cellsDownToUp.push(column);
         }
     },
 
     addNext: function() {
         if (this.gameGrid.filter(grid => grid.value === 0).length === 0) return;
 
-        let gridNumber = Math.floor(Math.random() * this.gridNumber);
-        while (this.gameGrid[gridNumber].value !== 0) {
-            gridNumber = Math.floor(Math.random() * this.gridNumber);
+        let cellIndex = Math.floor(Math.random() * this.gridSize);
+        while (this.gameGrid[cellIndex].value !== 0) {
+            cellIndex = Math.floor(Math.random() * this.gridSize);
         }
-        this.gameGrid[gridNumber].value = this.getRandomNumber();
+        this.gameGrid[cellIndex].value = this.getRandomNumber();
     },
 
     getRandomNumber: function() {
        const percent = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-       if (this.gridNumber < 16) {
+       if (this.gridSize < 16) {
            return 2;
-       } else if (this.gridNumber === 16) {
+       } else if (this.gridSize === 16) {
            let randomNumber = Math.floor(Math.random() * percent.length);
            return randomNumber < 9 ? 2 : 4;
        } else {
@@ -88,16 +88,16 @@ export const game = {
         let grids;
         switch(direction) {
             case "left":
-                grids = this.gridsRightToLeft;
+                grids = this.cellsRightToLeft;
                 break;
             case "right":
-                grids = this.gridsLeftToRight;
+                grids = this.cellsLeftToRight;
                 break;
             case "up":
-                grids = this.gridsDownToUp;
+                grids = this.cellsDownToUp;
                 break;
             case "down":
-                grids = this.gridsUpToDown;
+                grids = this.cellsUpToDown;
                 break;
         }
 
@@ -112,7 +112,7 @@ export const game = {
 
 
     addSameNeighbours: function(grids) {
-        for (let i = Math.sqrt(this.gridNumber) - 2; i >= 0; i--) {
+        for (let i = Math.sqrt(this.gridSize) - 2; i >= 0; i--) {
             if (grids[i].value === grids[i + 1].value) {
                 grids[i + 1].value *= 2;
                 grids[i].value = 0;
@@ -121,8 +121,8 @@ export const game = {
     },
 
     shiftOverEmptyGrids: function(grids) {
-        for (let i = 0; i < Math.sqrt(this.gridNumber) - 1; i++) {
-            for (let j = 0; j < Math.sqrt(this.gridNumber) - 1; j++) {
+        for (let i = 0; i < Math.sqrt(this.gridSize) - 1; i++) {
+            for (let j = 0; j < Math.sqrt(this.gridSize) - 1; j++) {
                 if (grids[j + 1].value === 0) {
                     grids[j + 1].value = grids[j].value;
                     grids[j].value = 0;
@@ -146,12 +146,12 @@ export const game = {
             return false;
         }
 
-        for (let i = 0; i < Math.sqrt(this.gridNumber); i++) {
-            for (let j = 0; j < Math.sqrt(this.gridNumber) - 1; j++) {
-                if (this.gridsRightToLeft[i][j].value === this.gridsRightToLeft[i][j + 1].value ||
-                        this.gridsLeftToRight[i][j].value === this.gridsLeftToRight[i][j + 1].value ||
-                        this.gridsUpToDown[i][j].value === this.gridsUpToDown[i][j + 1].value ||
-                        this.gridsDownToUp[i][j].value === this.gridsDownToUp[i][j + 1].value) {
+        for (let i = 0; i < Math.sqrt(this.gridSize); i++) {
+            for (let j = 0; j < Math.sqrt(this.gridSize) - 1; j++) {
+                if (this.cellsRightToLeft[i][j].value === this.cellsRightToLeft[i][j + 1].value ||
+                        this.cellsLeftToRight[i][j].value === this.cellsLeftToRight[i][j + 1].value ||
+                        this.cellsUpToDown[i][j].value === this.cellsUpToDown[i][j + 1].value ||
+                        this.cellsDownToUp[i][j].value === this.cellsDownToUp[i][j + 1].value) {
                     return false;
                 }
             }
@@ -177,10 +177,10 @@ export const game = {
 
     destroyGame: function() {
         this.gameGrid = [];
-        this.gridsLeftToRight = [];
-        this.gridsRightToLeft = [];
-        this.gridsUpToDown = [];
-        this.gridsDownToUp = [];
+        this.cellsLeftToRight = [];
+        this.cellsRightToLeft = [];
+        this.cellsUpToDown = [];
+        this.cellsDownToUp = [];
     }
 
 };

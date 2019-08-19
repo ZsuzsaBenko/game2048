@@ -13,7 +13,7 @@ export const view = {
     createGameGrid: function() {
         this.defineContainerSize();
 
-        for (let i = 0; i < game.gridNumber; i++) {
+        for (let i = 0; i < game.gridSize; i++) {
             let grid = document.createElement("div");
             this.defineGridSize(grid);
             grid.style.boxSizing = "border-box";
@@ -26,17 +26,17 @@ export const view = {
     defineContainerSize() {
         const fontSizes = [13, 20, 25];
         for (let i = 0; i < this.windowSizeBreakpoints.length; i++) {
-            if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridNumber < 16) {
-                this.container.style.width = `${this.sizesForFewerGrids[i] * Math.sqrt(game.gridNumber)}px`;
-                this.container.style.height = `${this.sizesForFewerGrids[i] * Math.sqrt(game.gridNumber)}px`;
+            if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize < 16) {
+                this.container.style.width = `${this.sizesForFewerGrids[i] * Math.sqrt(game.gridSize)}px`;
+                this.container.style.height = `${this.sizesForFewerGrids[i] * Math.sqrt(game.gridSize)}px`;
                 this.container.style.lineHeight = `${this.sizesForFewerGrids[i] - 2}px`;
-            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridNumber === 16) {
-                this.container.style.width = `${this.sizesForNormalGrids[i] * Math.sqrt(game.gridNumber)}px`;
-                this.container.style.height = `${this.sizesForNormalGrids[i] * Math.sqrt(game.gridNumber)}px`;
+            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize === 16) {
+                this.container.style.width = `${this.sizesForNormalGrids[i] * Math.sqrt(game.gridSize)}px`;
+                this.container.style.height = `${this.sizesForNormalGrids[i] * Math.sqrt(game.gridSize)}px`;
                 this.container.style.lineHeight = `${this.sizesForNormalGrids[i] - 2}px`;
-            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridNumber > 16) {
-                this.container.style.width = `${this.sizesForMoreGrids[i] * Math.sqrt(game.gridNumber)}px`;
-                this.container.style.height = `${this.sizesForMoreGrids[i] * Math.sqrt(game.gridNumber)}px`;
+            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize > 16) {
+                this.container.style.width = `${this.sizesForMoreGrids[i] * Math.sqrt(game.gridSize)}px`;
+                this.container.style.height = `${this.sizesForMoreGrids[i] * Math.sqrt(game.gridSize)}px`;
                 this.container.style.lineHeight = `${this.sizesForMoreGrids[i] - 2}px`;
             }
             this.container.style.fontSize = `${fontSizes[i]}px`;
@@ -45,13 +45,13 @@ export const view = {
 
     defineGridSize(grid) {
         for (let i = 0; i < this.windowSizeBreakpoints.length; i++) {
-            if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridNumber < 16) {
+            if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize < 16) {
                 grid.style.width = `${this.sizesForFewerGrids[i]}px`;
                 grid.style.height = `${this.sizesForFewerGrids[i]}px`;
-            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridNumber === 16) {
+            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize === 16) {
                 grid.style.width = `${this.sizesForNormalGrids[i]}px`;
                 grid.style.height = `${this.sizesForNormalGrids[i]}px`;
-            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridNumber > 16) {
+            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize > 16) {
                 grid.style.width = `${this.sizesForMoreGrids[i]}px`;
                 grid.style.height = `${this.sizesForMoreGrids[i]}px`;
             }
@@ -59,7 +59,7 @@ export const view = {
     },
 
     displayGameGrid: function() {
-        for (let i = 0; i < game.gridNumber; i++) {
+        for (let i = 0; i < game.gridSize; i++) {
             const grid = document.getElementById(`${i}`);
             grid.innerText = '';
             grid.style.backgroundColor = "gainsboro";
