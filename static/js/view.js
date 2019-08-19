@@ -63,12 +63,12 @@ export const view = {
             const grid = document.getElementById(`${i}`);
             grid.innerText = '';
             grid.style.backgroundColor = "gainsboro";
-            if (game.gameGrid[i].value !== 0) {
-                grid.innerText = game.gameGrid[i].value;
+            if (game.grid[i].value !== 0) {
+                grid.innerText = game.grid[i].value;
                 this.colorGrid(grid);
             }
         }
-        let maxNumber = Math.max(...game.gameGrid.map(grid => grid.value));
+        let maxNumber = Math.max(...game.grid.map(grid => grid.value));
         if (maxNumber >= this.winNumber) {
             this.sendCongratulationsMessage(maxNumber);
         }
@@ -171,7 +171,7 @@ export const view = {
     playNewGame: function() {
         const newGameButton = document.querySelector("#newGameButton");
         newGameButton.addEventListener("click", function (event) {
-            let size = game.gameGrid.length;
+            let size = game.grid.length;
             view.restart(size);
         });
     },

@@ -3,8 +3,8 @@ import { view } from "./view.js";
 
 
 function main() {
-    let size = 16;
-    game.initGame(size);
+    //let size = 16;
+    game.initGame(game.sizes.NORMAL);
 
     view.createGameGrid();
     view.displayGameGrid();
