@@ -92,7 +92,7 @@ export const view = {
             this.sendCongratulationsMessage(maxNumber);
         }
     },
-    
+
     sendCongratulationsMessage: function(number) {
         const message = `You have reached ${number}! Congratulations!`;
         const messageParagraph = document.querySelector("#message");
@@ -186,6 +186,9 @@ export const view = {
         const sizeSelector = document.querySelector("#gridSize");
         sizeSelector.addEventListener("change", function(event) {
             let size = Math.pow(parseInt(sizeSelector.value), 2);
+            if (size !== game.sizes.SMALL && size !== game.sizes.NORMAL && size !== game.sizes.LARGE) {
+                size = game.sizes.NORMAL;
+            }
             sizeSelector.blur();
             view.restart(size);
         });
