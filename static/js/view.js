@@ -14,12 +14,12 @@ export const view = {
         this.defineContainerSize();
 
         for (let i = 0; i < game.gridSize; i++) {
-            let grid = document.createElement("div");
-            this.defineGridSize(grid);
-            grid.style.boxSizing = "border-box";
-            grid.setAttribute("id", `${i}`);
-            grid.style.border = "1px solid black";
-            this.container.appendChild(grid);
+            let cell = document.createElement("div");
+            this.defineCellSize(cell);
+            cell.style.boxSizing = "border-box";
+            cell.setAttribute("id", `${i}`);
+            cell.style.border = "1px solid black";
+            this.container.appendChild(cell);
         }
     },
 
@@ -43,7 +43,7 @@ export const view = {
         }
     },
 
-    defineGridSize(grid) {
+    defineCellSize(grid) {
         for (let i = 0; i < this.windowSizeBreakpoints.length; i++) {
             if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize < 16) {
                 grid.style.width = `${this.sizesForFewerGrids[i]}px`;
@@ -60,18 +60,17 @@ export const view = {
 
     displayGameGrid: function() {
         for (let i = 0; i < game.gridSize; i++) {
-            const grid = document.getElementById(`${i}`);
-            grid.innerText = '';
-            grid.style.backgroundColor = "gainsboro";
+            const cell = document.getElementById(`${i}`);
+            cell.textContent = '';
+            cell.style.backgroundColor = "gainsboro";
             if (game.grid[i].value !== 0) {
-                grid.innerText = game.grid[i].value;
-                this.colorGrid(grid);
+                cell.textContent = game.grid[i].value;
+                this.colorGrid(cell);
             }
         }
-        let maxNumber = Math.max(...game.grid.map(grid => grid.value));
-        if (maxNumber >= this.winNumber) {
-            this.sendCongratulationsMessage(maxNumber);
-        }
+
+        this.congratulateOnHighValue();
+
         if (game.isGameOver())  {
             this.displayPopup();
         }
@@ -87,6 +86,13 @@ export const view = {
         }
     },
 
+    congratulateOnHighValue: function() {
+        let maxNumber = Math.max(...game.grid.map(cell => cell.value));
+        if (maxNumber >= this.winNumber) {
+            this.sendCongratulationsMessage(maxNumber);
+        }
+    },
+    
     sendCongratulationsMessage: function(number) {
         const message = `You have reached ${number}! Congratulations!`;
         const messageParagraph = document.querySelector("#message");
