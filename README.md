@@ -4,3 +4,6 @@ The well-known logic game with some extras: players can choose a 3x3, a 4x4 or a
 
 ### Technologies
 Python - Flask, HTML5, CSS3, JavaScript (ES6)
+
+### Link
+https://zsuzsabenko.github.io/game2048/
