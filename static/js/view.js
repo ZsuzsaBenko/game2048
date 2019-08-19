@@ -3,60 +3,34 @@ import {game} from './game.js';
 
 export const view = {
     container: document.querySelector("#game-container"),
-    windowSize: window.innerWidth,
-    windowSizeBreakpoints: [200, 600, 1000],
-    sizesForFewerGrids:  [85, 105, 110],
-    sizesForNormalGrids: [65, 85, 90],
-    sizesForMoreGrids: [55, 70, 75],
-    winNumber: 128,
+    winNumber: 2048,
 
     createGameGrid: function() {
-        this.defineContainerSize();
+        let cell;
 
         for (let i = 0; i < game.gridSize; i++) {
-            let cell = document.createElement("div");
+            cell = document.createElement("div");
             this.defineCellSize(cell);
             cell.style.boxSizing = "border-box";
             cell.setAttribute("id", `${i}`);
             cell.style.border = "1px solid black";
             this.container.appendChild(cell);
         }
+        this.container.style.width = `${cell.offsetWidth * Math.sqrt(game.gridSize)}px`;
     },
 
-    defineContainerSize() {
-        const fontSizes = [13, 20, 25];
-        for (let i = 0; i < this.windowSizeBreakpoints.length; i++) {
-            if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize < 16) {
-                this.container.style.width = `${this.sizesForFewerGrids[i] * Math.sqrt(game.gridSize)}px`;
-                this.container.style.height = `${this.sizesForFewerGrids[i] * Math.sqrt(game.gridSize)}px`;
-                this.container.style.lineHeight = `${this.sizesForFewerGrids[i] - 2}px`;
-            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize === 16) {
-                this.container.style.width = `${this.sizesForNormalGrids[i] * Math.sqrt(game.gridSize)}px`;
-                this.container.style.height = `${this.sizesForNormalGrids[i] * Math.sqrt(game.gridSize)}px`;
-                this.container.style.lineHeight = `${this.sizesForNormalGrids[i] - 2}px`;
-            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize > 16) {
-                this.container.style.width = `${this.sizesForMoreGrids[i] * Math.sqrt(game.gridSize)}px`;
-                this.container.style.height = `${this.sizesForMoreGrids[i] * Math.sqrt(game.gridSize)}px`;
-                this.container.style.lineHeight = `${this.sizesForMoreGrids[i] - 2}px`;
-            }
-            this.container.style.fontSize = `${fontSizes[i]}px`;
+    defineCellSize(cell) {
+        if (game.gridSize === game.sizes.SMALL) {
+            cell.classList.add("small-grid-cell");
+        }
+        else if (game.gridSize === game.sizes.NORMAL) {
+            cell.classList.add("normal-grid-cell");
+        }
+        else {
+            cell.classList.add("large-grid-cell");
         }
     },
 
-    defineCellSize(grid) {
-        for (let i = 0; i < this.windowSizeBreakpoints.length; i++) {
-            if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize < 16) {
-                grid.style.width = `${this.sizesForFewerGrids[i]}px`;
-                grid.style.height = `${this.sizesForFewerGrids[i]}px`;
-            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize === 16) {
-                grid.style.width = `${this.sizesForNormalGrids[i]}px`;
-                grid.style.height = `${this.sizesForNormalGrids[i]}px`;
-            } else if (this.windowSize > this.windowSizeBreakpoints[i] && game.gridSize > 16) {
-                grid.style.width = `${this.sizesForMoreGrids[i]}px`;
-                grid.style.height = `${this.sizesForMoreGrids[i]}px`;
-            }
-        }
-    },
 
     displayGameGrid: function() {
         for (let i = 0; i < game.gridSize; i++) {
