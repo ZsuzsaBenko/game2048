@@ -90,16 +90,16 @@ export const game = {
 
         let grids;
         switch(direction) {
-            case "left":
+            case 'left':
                 grids = this.cellsRightToLeft;
                 break;
-            case "right":
+            case 'right':
                 grids = this.cellsLeftToRight;
                 break;
-            case "up":
+            case 'up':
                 grids = this.cellsDownToUp;
                 break;
-            case "down":
+            case 'down':
                 grids = this.cellsUpToDown;
                 break;
         }

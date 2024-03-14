@@ -1,5 +1,5 @@
 import { game } from './game.js';
-import { view } from "./view.js";
+import { view } from './view.js';
 
 
 function main() {
